@@ -32,8 +32,8 @@ Includes statistical data for every single offensive line and defensive pairing 
 NHL regular season.
 
 * Each item is a single line or defensive pair 
-* Number of dataset items:  2947
-* There are 108 different stats (row items), examples include:
+* Number of dataset (row) items:  2947
+* There are 108 different stats (column items), examples include:
   * Line/Pair name
   * Games played
   * Total ice time (minutes)
@@ -74,14 +74,16 @@ All data is publicly available and not considered sensitive.
 ### Investigative Questions
 
 1. What were the most effective lines in the NHL for the 2022 - 2023 Season?
-   * Data fields used: Minutes played, Goals per game average, Goals against average
-   * Results produced will be the top-five lines in the NHL based on the above statistics
-   * The results will be presented by dictionary within a dictionary, with the top level key being the rank (one
-     through five) and value being the dictionary of the specific line representing that rank. This lower level
-     dictionary will have key line name and value list of each of the statistics mentioned above for that line.
+   * Data fields used to determine this: Minutes played (set a minimum filter), Goals For, Goals Against, Name
+   * Results produced will be the top-five lines in the NHL based on the weighted average of _Goals for_ divided by 
+     _Goals Against_ (GF/GA).
+   * Minutes Played will be used to filter lines so that only those that have 200 total minutes or more played will be
+     factored in.
+   * The results will be presented by a dictionary with the top level key being the rank (one through five) and value
+     being a string of the specific line _name_  and  the weighted average of GF/GA.
 
 2. What was the most physical defensive pair for each team in the NHL in the 2022-2023 season?
-    * Data fields used: Hits for, Blocked shot attempts for, Takeaways for, Games played, Team
-    * Results will be the top defensive pairs for each team in the NHL based upon the above statistics
-    * The result will be presented by a list of teams, and each list contains a dictionary with keys for each statistic
-      mentioned above and values being that team's defensive pair with the highest score for that statistic.
+    * Data fields used: Hits for, Team, Name
+    * Results will be the defensive pair for each team in the NHL with the highest _Hits for_ statistic
+    * The result will be presented as a dictionary with each _Team_ as the key and value as the _name_ of the 
+      pair
