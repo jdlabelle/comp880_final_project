@@ -25,5 +25,5 @@
 
 ## *most_physical_defensive_pair* Design
 * Description: take the data from `self.list_of_line_dicts` and filter for the defensive pair for each team with the 
-  highest number of hits.
+  highest number of hits. Will only return defensive pairs; offensive lines will be filtered out.
 * Return a dictionary with key `team` and value `pair_name` with the highest hits statistic for that team.
