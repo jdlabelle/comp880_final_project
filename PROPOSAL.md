@@ -74,10 +74,10 @@ All data is publicly available and not considered sensitive.
 ### Investigative Questions
 
 1. What were the most effective lines in the NHL for the 2022 - 2023 Season?
-   * Data fields used to determine this: Minutes played (set a minimum filter), Goals For, Goals Against, Name
+   * Data fields used to determine this: Games played (set a minimum filter), Goals For, Goals Against, Name
    * Results produced will be the top-five lines in the NHL based on the weighted average of _Goals for_ divided by 
      _Goals Against_ (GF/GA).
-   * Minutes Played will be used to filter lines so that only those that have 200 total minutes or more played will be
+   * Games Played will be used to filter lines so that only those that have 20 or more games played will be
      factored in.
    * The results will be presented by a dictionary with the top level key being the rank (one through five) and value
      being a string of the specific line _name_  and  the weighted average of GF/GA.
