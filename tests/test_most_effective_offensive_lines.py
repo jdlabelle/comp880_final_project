@@ -6,7 +6,7 @@ Date: 23 April 2023
 import os
 import pytest
 # pylint: disable=import-error
-from src.lines import Lines
+from src.nhl_lines import Lines
 # pylint: enable=import-error
 
 # pytest looks for files in the directory in which it is run,
