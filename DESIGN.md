@@ -5,6 +5,7 @@
   * This class will represent a dataset with NHL offensive line and defensive pair statistics.
 * Instance Variables:
   * `self.fin_name`, `self.fout_name`: strings, names of input and output files
+  * `self.list_of_line_dicts`: list of dictionaries for each line/pair. Updated by `organize_by_line` helper method.
 
 ##  *__init__* Design
 * create the class constructor `__init__`
