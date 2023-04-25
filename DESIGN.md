@@ -81,10 +81,20 @@
       values: tuple with `name` (type string) and `weighted_average` (type float).
     """
 ```
-* Use the _sorted_ function to organize the dictionaries in `self.list_of_line_dicts` in descending order based on the
-  value associated with the key `weighted_average`. Assign this to `sorted_top_five`.
+#### Part 1:
+* Use list comprehension to filter `self.list_of_line_dicts` and create a new list of dictionaries
+  `filtered_list_of_line_dicts` that only include the dictionaries that have the key/value pair `position`: `line`.
+  * This new list will only contain dictionaries that represent defensive pairs, since this method is solely focused on
+    offensive lines.
+  * the comprehension will consist of a for loop with iterator `line_dict` and iterable `self.list_of_line_dicts`
+  * it will also have an _if_ statement to only include the dictionaries where the value associated with the key
+    `position` is equal to "line".
+
+##### Part 2:
+* Use the _sorted_ function to organize the dictionaries in `filtered_list_of_line_dicts` in descending order based on 
+  the value associated with the key `weighted_average`. Assign this to `sorted_top_five`.
   * use indexing to only grab the first five dictionaries.
-  * arguments for sorted function would be `self.list_of_line_dicts`, a _lambda_ function that will instruct the
+  * arguments for sorted function would be `filtered_list_of_line_dicts`, a _lambda_ function that will instruct the
     function to sort based on value associated with the key `weighted_average`, and `reverse=True` in order to specify
     descending order.
 * construct the dictionary `most_effective_offensive_lines` using the values from `sorted_top_five`.
