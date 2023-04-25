@@ -33,10 +33,25 @@ class Lines:
         `goalsFor` by `goalsAgainst`.
         :return: List of Dictionaries
             keys: the name of each require statistic. "name", "position", "games_played", "team", "goalsFor",
-            "goalsAgainst", "hitsFor", "weighted_average".
-            values: Dataset representation of each statistic associated with each line/pair. "position" and "team" will
-            be a string, "weighted_average" will be a float, and the rest are integers.
+                  "goalsAgainst", "hitsFor", "weighted_average".
+            values: Dataset representation of each statistic associated with each line/pair. "name", "position", and
+                    "team" will be type string, "games_played" will be type int, and all others will be type float.
         """
+        with open(self.fin_name, 'r') as f_in:
+            self.list_of_line_dicts = []
+            line_lst = []
+            for row in f_in.readlines():
+                row_lst = row.split(',')
+                line_lst.append(row_lst)
+            for line in line_lst[1:]:
+                line_dict = {line_lst[0][2]: line[2], line_lst[0][3]: line[3], line_lst[0][4]: line[4],
+                             line_lst[0][6]: int(line[6]), line_lst[0][26]: float(line[26]),
+                             line_lst[0][74]: float(line[74]), line_lst[0][38]: float(line[38])}
+                line_dict["weighted_average"] = line_dict["goalsFor"] / line_dict["goalsAgainst"]
+                self.list_of_line_dicts.append(line_dict)
+            return self.list_of_line_dicts
+
+
 
     def most_effective_offensive_lines(self):
         """
@@ -55,3 +70,13 @@ class Lines:
             keys: string representing `team` (3 letter city abbreviation: BOS, DET, OTT, etc)
             values: string representing `name` (defensive pair names)
         """
+
+
+def main():
+    lines_obj = Lines("../data/data_5.txt", "data_out.txt")
+    print(lines_obj.organize_by_line())
+
+
+main()
+
+
