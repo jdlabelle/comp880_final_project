@@ -71,11 +71,26 @@
 * return `self.list_of_line_dicts`.
 
 ## *most_effective_offensive_lines* Design
-* Description: take the data from `self.list_of_line_dicts` and filter for the top 5 most effective lines in the NHL as
-  determined by the weighted statistic Goals for divided by Goals against.
-* Return a dictionary with keys `Rank` and values tuple of `line_name` and `weighted_average`.
-  * if 2 lines have the same `weighted_average`, the line with more games played will be ranked higher.
-* Calculate `weighted_average` by dividing `goals_for` by `goals_against`. `weighted_average` is a float. 
+```
+  def most_effective_offensive_lines(self):
+    """
+    Identify the top 5 most effective offensive lines in the NHL for the 2022-2023 regular season. Take the data
+    from `self.list_of_line_dicts` and return a dictionary of rank and offensive line.
+    :return: Dictionary with five keys.
+      keys: (Integer) representing `rank` (1 through 5)
+      values: tuple with `name` (type string) and `weighted_average` (type float).
+    """
+```
+* Use the _sorted_ function to organize the dictionaries in `self.list_of_line_dicts` in descending order based on the
+  value associated with the key `weighted_average`. Assign this to `sorted_top_five`.
+  * use indexing to only grab the first five dictionaries.
+  * arguments for sorted function would be `self.list_of_line_dicts`, a _lambda_ function that will instruct the
+    function to sort based on value associated with the key `weighted_average`, and `reverse=True` in order to specify
+    descending order.
+* construct the dictionary `most_effective_offensive_lines` using the values from `sorted_top_five`.
+  * cast the type _tuple_ with the tuple() function
+* return `most_effective_offensive_lines`.
+
 
 ## *most_physical_defensive_pair* Design
 * Description: take the data from `self.list_of_line_dicts` and filter for the defensive pair for each team with the 

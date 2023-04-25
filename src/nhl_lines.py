@@ -59,7 +59,7 @@ class Lines:
         from `self.list_of_line_dicts` and return a dictionary of rank and offensive line.
         :return: Dictionary with five keys.
             keys: (Integer) representing `rank` (1 through 5)
-            values: tuple with `name` and `weighted_average`.
+            values: tuple with `name` (type string) and `weighted_average` (type float).
         """
 
     def most_physical_defensive_pair(self):
