@@ -62,7 +62,7 @@ class Lines:
         """
         Identify the top 5 most effective offensive lines in the NHL for the 2022-2023 regular season. Take the data
         from `self.list_of_line_dicts` and return a dictionary of rank and offensive line. Filters so that only lines
-        with 20+ games played are considered.
+        with 30+ games played are considered.
         :return: Dictionary with five keys.
             keys: (Integer) representing `rank` (1 through 5)
             values: tuple with `name` (type string) and `weighted_average` (type float).
@@ -70,7 +70,7 @@ class Lines:
         # filter for only offensive lines and teams with 20+ games played
         filtered_list_of_line_dicts = [line_dict
                                        for line_dict in self.list_of_line_dicts
-                                       if line_dict["position"] == "line" and line_dict["games_played"] >= 20]
+                                       if line_dict["position"] == "line" and line_dict["games_played"] >= 30]
 
         # sort the filtered list of lines from highest weighted average to lowest
         sorted_list_of_line_dicts = sorted(filtered_list_of_line_dicts, key=lambda x: x["weighted_average"],
@@ -95,7 +95,7 @@ class Lines:
 
 
 def main():
-    lines_obj = Lines("../data/data_10.txt", "data_out.txt")
+    lines_obj = Lines("../data/NHL_Line_Data.csv", "data_out.txt")
     lines_obj.organize_by_line()
     output = lines_obj.most_effective_offensive_lines()
     print(output)
