@@ -47,7 +47,7 @@ class Lines:
                 line_dict = {line_lst[0][2]: line[2], line_lst[0][3]: line[3], line_lst[0][4]: line[4],
                              line_lst[0][6]: int(line[6]), line_lst[0][26]: float(line[26]),
                              line_lst[0][74]: float(line[74]), line_lst[0][38]: float(line[38])}
-                line_dict["weighted_average"] = line_dict["goalsFor"] / line_dict["goalsAgainst"]
+                line_dict["weighted_average"] = round(line_dict["goalsFor"] / line_dict["goalsAgainst"], 2)
                 self.list_of_line_dicts.append(line_dict)
             return self.list_of_line_dicts
 
@@ -61,6 +61,22 @@ class Lines:
             keys: (Integer) representing `rank` (1 through 5)
             values: tuple with `name` (type string) and `weighted_average` (type float).
         """
+        # filter for only offensive lines
+        filtered_list_of_line_dicts = [line_dict
+                                       for line_dict in self.list_of_line_dicts
+                                       if line_dict["position"] == "line"]
+
+        # sort the filtered list of lines from highest weighted average to lowest
+        sorted_list_of_line_dicts = sorted(filtered_list_of_line_dicts, key=lambda x: x["weighted_average"],
+                                           reverse=True)
+
+        # construct the return dictionary
+        most_effective_offensive_lines = {}
+        for i in range(min(len(sorted_list_of_line_dicts), 5)):  # avoid an index out of range error
+            most_effective_offensive_lines[i+1] = (sorted_list_of_line_dicts[i]['name'],
+                                                   sorted_list_of_line_dicts[i]['weighted_average'])
+
+        return most_effective_offensive_lines
 
     def most_physical_defensive_pair(self):
         """
@@ -74,7 +90,9 @@ class Lines:
 
 def main():
     lines_obj = Lines("../data/data_5.txt", "data_out.txt")
-    print(lines_obj.organize_by_line())
+    lines_obj.organize_by_line()
+    output = lines_obj.most_effective_offensive_lines()
+    print(output)
 
 
 main()

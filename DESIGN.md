@@ -68,6 +68,7 @@
     * append `line_dict` to `self.list_of_line_dicts`.
   * add the key `weighted_average` and associated value as the calculation of `goalsFor` divided by `goalsAgainst` to
     each dictionary in `self.list_of_line_dicts`.
+    * use the `round()` function here to round `weighted_average` to 2 decimal places
 * return `self.list_of_line_dicts`.
 
 ## *most_effective_offensive_lines* Design
@@ -92,13 +93,22 @@
 
 ##### Part 2:
 * Use the _sorted_ function to organize the dictionaries in `filtered_list_of_line_dicts` in descending order based on 
-  the value associated with the key `weighted_average`. Assign this to `sorted_top_five`.
+  the value associated with the key `weighted_average`. Assign this to `sorted_list_of_line_dicts`.
   * use indexing to only grab the first five dictionaries.
   * arguments for sorted function would be `filtered_list_of_line_dicts`, a _lambda_ function that will instruct the
     function to sort based on value associated with the key `weighted_average`, and `reverse=True` in order to specify
     descending order.
-* construct the dictionary `most_effective_offensive_lines` using the values from `sorted_top_five`.
-  * cast the type _tuple_ with the tuple() function
+* construct the dictionary `most_effective_offensive_lines` using the values from `sorted_list_of_line_dicts`.
+  * initialize the empty dictionary `most_effective_offensive_lines`
+  * use a _for loop_ with iterator `i` and iterable `range(min(len(sorted_list_of_line_dicts), 5))`
+    * this will allow us to create the dictionary using `i` as the common index, and the iterable is structured so that 
+      if `sorted_list_of_line_dicts` has less than 5 entries, it will add to the dictionary the minimum number of dictionaries
+      between the length of `sorted_list_of_line_dicts` and the integer 5. 
+      * This will avoid an _index out of range error_ if `len(sorted_list_of_line_dicts)` is less than five
+    * within the for loop, each key of `most_effective_offensive_lines` will start with the integer 1, and we can index
+      `i`+1 to represent this (since `i` will start at 0).
+    * assign the value to the tuple of index `i` of `sorted_list_of_line_dicts` key `name`, and index `i` of
+      `sorted_list_of_line_dicts` key `weighted_average`.
 * return `most_effective_offensive_lines`.
 
 
