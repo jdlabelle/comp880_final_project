@@ -47,7 +47,12 @@ class Lines:
                 line_dict = {line_lst[0][2]: line[2], line_lst[0][3]: line[3], line_lst[0][4]: line[4],
                              line_lst[0][6]: int(line[6]), line_lst[0][26]: float(line[26]),
                              line_lst[0][74]: float(line[74]), line_lst[0][38]: float(line[38])}
-                line_dict["weighted_average"] = round(line_dict["goalsFor"] / line_dict["goalsAgainst"], 2)
+                if line_dict["goalsFor"] > 0 and line_dict["goalsAgainst"] != 0:
+                    line_dict["weighted_average"] = round(line_dict["goalsFor"] / line_dict["goalsAgainst"], 2)
+                elif line_dict["goalsFor"] > 0 and line_dict["goalsAgainst"] == 0:
+                    line_dict["weighted_average"] = line_dict["goalsFor"]
+                else:
+                    line_dict["weighted_average"] = 0
                 self.list_of_line_dicts.append(line_dict)
             return self.list_of_line_dicts
 
@@ -56,15 +61,16 @@ class Lines:
     def most_effective_offensive_lines(self):
         """
         Identify the top 5 most effective offensive lines in the NHL for the 2022-2023 regular season. Take the data
-        from `self.list_of_line_dicts` and return a dictionary of rank and offensive line.
+        from `self.list_of_line_dicts` and return a dictionary of rank and offensive line. Filters so that only lines
+        with 20+ games played are considered.
         :return: Dictionary with five keys.
             keys: (Integer) representing `rank` (1 through 5)
             values: tuple with `name` (type string) and `weighted_average` (type float).
         """
-        # filter for only offensive lines
+        # filter for only offensive lines and teams with 20+ games played
         filtered_list_of_line_dicts = [line_dict
                                        for line_dict in self.list_of_line_dicts
-                                       if line_dict["position"] == "line"]
+                                       if line_dict["position"] == "line" and line_dict["games_played"] >= 20]
 
         # sort the filtered list of lines from highest weighted average to lowest
         sorted_list_of_line_dicts = sorted(filtered_list_of_line_dicts, key=lambda x: x["weighted_average"],
@@ -89,7 +95,7 @@ class Lines:
 
 
 def main():
-    lines_obj = Lines("../data/data_5.txt", "data_out.txt")
+    lines_obj = Lines("../data/data_10.txt", "data_out.txt")
     lines_obj.organize_by_line()
     output = lines_obj.most_effective_offensive_lines()
     print(output)

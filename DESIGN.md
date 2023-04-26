@@ -59,16 +59,20 @@
   * this will give us a list of parallel lists from which we can construct `self.list_of_line_dicts`.
 * Use a _for loop_ with iterator `line` and iterable `line_lst`. Index `line_lst` so that a dictionary is not created
   from the header, which is `line_lst[0]`
-  * initialize an empty dictionary `line_dict`.
-  * assign keys to this dictionary with `line_lst[0]` items (which are the headers, or stat names).
-  * assign values to each key for the parallel item in each `line`.
-    * these will be idx 2 for `name`, idx 3 for `team`, idx 4 for `position`, idx 6 for `games_played`, idx 26 for 
-      `goalsFor`, idx 38 for `hitsFor`, idx 74 for `goalsAgainst`.
-      * use type casting in order to transform the needed values to type int or float.
-    * append `line_dict` to `self.list_of_line_dicts`.
-  * add the key `weighted_average` and associated value as the calculation of `goalsFor` divided by `goalsAgainst` to
-    each dictionary in `self.list_of_line_dicts`.
-    * use the `round()` function here to round `weighted_average` to 2 decimal places
+  * initialize the dictionary `line_dict` and build it as follows:
+    * assign keys to this dictionary with `line_lst[0]` items (which are the headers, or stat names).
+    * assign values to each key for the parallel item in each `line`.
+      * these will be idx 2 for `name`, idx 3 for `team`, idx 4 for `position`, idx 6 for `games_played`, idx 26 for 
+        `goalsFor`, idx 38 for `hitsFor`, idx 74 for `goalsAgainst`.
+        * use type casting in order to transform the needed values to type int or float.
+  * Use conditional _if elif else_ statements to handle the various scenarios for the `weighted_average` calculation and
+    avoid a _divide by zero_ scenario.
+    * for the happy path, add the key `weighted_average` and associated value as the calculation of `goalsFor` divided by `goalsAgainst` to
+      each dictionary in `self.list_of_line_dicts`.
+      * use the `round()` function here to round `weighted_average` to 2 decimal places.
+    * else if `goalsAgainst` is equal to zero, the value of `goalsFor` is the `weighted_average`.
+    * else `weighted_average` is equal to zero.
+  * append `line_dict` to `self.list_of_line_dicts`.
 * return `self.list_of_line_dicts`.
 
 ## *most_effective_offensive_lines* Design
@@ -76,7 +80,8 @@
   def most_effective_offensive_lines(self):
     """
     Identify the top 5 most effective offensive lines in the NHL for the 2022-2023 regular season. Take the data
-    from `self.list_of_line_dicts` and return a dictionary of rank and offensive line.
+    from `self.list_of_line_dicts` and return a dictionary of rank and offensive line. Filters so that only lines
+    with 20+ games played are considered.
     :return: Dictionary with five keys.
       keys: (Integer) representing `rank` (1 through 5)
       values: tuple with `name` (type string) and `weighted_average` (type float).
@@ -84,12 +89,13 @@
 ```
 #### Part 1:
 * Use list comprehension to filter `self.list_of_line_dicts` and create a new list of dictionaries
-  `filtered_list_of_line_dicts` that only include the dictionaries that have the key/value pair `position`: `line`.
-  * This new list will only contain dictionaries that represent defensive pairs, since this method is solely focused on
-    offensive lines.
+  `filtered_list_of_line_dicts` that only include the dictionaries that have the key/value pair `position`: `line` and
+  `games_played`: 20 or greater.
+  * This new list will only contain dictionaries that represent offensive lines with 20+ games played, since this method
+    is solely focused on offensive lines.
   * the comprehension will consist of a for loop with iterator `line_dict` and iterable `self.list_of_line_dicts`
   * it will also have an _if_ statement to only include the dictionaries where the value associated with the key
-    `position` is equal to "line".
+    `position` is equal to "line" _and_ `games_played` is greater than or equal to 20.
 
 ##### Part 2:
 * Use the _sorted_ function to organize the dictionaries in `filtered_list_of_line_dicts` in descending order based on 
