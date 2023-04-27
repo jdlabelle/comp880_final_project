@@ -20,17 +20,21 @@ FIXTURE_DIR = os.path.join(
 
 def test_organize_by_lines():
     """
-    Tests happy path for helper function organize_by_lines(). Returns a list of dictionaries representing each line/pair
-    statistics with keys `name` of each required statistic and values the actual data representation of that statistic.
-    Additionally, calculates `weighted_average` for each line by dividing `goalsFor` by `goalsAgainst` for inclusion in
-    the dictionary.
+    Tests happy path for helper function organize_by_lines(). Returns a list of
+    dictionaries representing each line/pair statistics with keys `name` of
+    each required statistic and values the actual data representation of that
+    statistic. Additionally, calculates `weighted_average` for each line by
+    dividing `goalsFor` by `goalsAgainst` for inclusion in the dictionary.
     """
     test_file_in = f'{FIXTURE_DIR}/../data/data_1.txt'
     test_file_out = f'{FIXTURE_DIR}/data_out.txt'
     lines_obj = Lines(test_file_in, test_file_out)
 
-    expected_result = [{"name": "Aho-Pulock", "team": "NYI", "position": "pairing", "games_played": 60, "goalsFor": 8.0,
-                        "goalsAgainst": 8.0, "hitsFor": 65.0, "weighted_average": 1.0}]
+    expected_result = [{
+        "name": "Aho-Pulock", "team": "NYI", "position": "pairing",
+        "games_played": 60, "goalsFor": 8.0, "goalsAgainst": 8.0,
+        "hitsFor": 65.0, "weighted_average": 1.0
+    }]
 
     actual_result = lines_obj.organize_by_line()
 

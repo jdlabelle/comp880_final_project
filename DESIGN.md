@@ -119,6 +119,17 @@
 
 
 ## *most_physical_defensive_pair* Design
-* Description: take the data from `self.list_of_line_dicts` and filter for the defensive pair for each team with the 
-  highest number of hits. Will only return defensive pairs; offensive lines will be filtered out.
-* Return a dictionary with key `team` and value `pair_name` with the highest hits statistic for that team.
+```
+  def most_physical_defensive_pair(self):
+    """
+    Identify the defensive pair with the highest number of hits for each team. Take the data from
+    `self.list_of_line_dicts` and return a dictionary with teams and defensive pairs.
+    :return: Dictionary
+      keys: string representing `team` (3 letter city abbreviation: BOS, DET, OTT, etc)
+      values: string representing `name` (defensive pair names)
+    """
+```
+* Use list comprehension to filter `self.list_of_line_dicts` and create a new list of dictionaries called
+  `list_of_pair_dicts` that only include the dictionaries that have the key/value pair `position`: `pair`.
+  * This new list will only contain dictionaries that represent defensive pairs since that is the focus of this method.
+  * the comprehension will consist of a for loop with iterator `pair_dict` and iterable `self.list_of_line_dicts`
