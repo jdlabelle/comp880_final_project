@@ -28,13 +28,14 @@ def test_most_physical_defensive_pair():
     test_file_out = f'{FIXTURE_DIR}/data_out.txt'
     lines_obj = Lines(test_file_in, test_file_out)
     lines_obj.organize_by_line()
+    lines_obj.most_physical_defensive_pair()
 
     expected_result = {
         "OTT": ("Chabot-Brannstrom", 90.0), "DET": ("Chiarot-Seider", 252.0),
         "PIT": ("Dumoulin-Letang", 247.0), "COL": ("Girard-Makar", 54.0)
     }
 
-    actual_result = lines_obj.most_physical_defensive_pair()
+    actual_result = lines_obj.physical_pairs
 
     assert actual_result == expected_result
 

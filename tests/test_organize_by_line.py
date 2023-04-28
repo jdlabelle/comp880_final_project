@@ -29,6 +29,7 @@ def test_organize_by_lines():
     test_file_in = f'{FIXTURE_DIR}/../data/data_1.csv'
     test_file_out = f'{FIXTURE_DIR}/data_out.txt'
     lines_obj = Lines(test_file_in, test_file_out)
+    lines_obj.organize_by_line()
 
     expected_result = [{
         "name": "Aho-Pulock", "team": "NYI", "position": "pairing",
@@ -36,7 +37,7 @@ def test_organize_by_lines():
         "hitsFor": 65.0, "weighted_average": 1.0
     }]
 
-    actual_result = lines_obj.organize_by_line()
+    actual_result = lines_obj.list_of_line_dicts
 
     assert actual_result == expected_result
 
