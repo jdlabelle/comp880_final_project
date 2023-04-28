@@ -27,13 +27,14 @@ def test_most_effective_offensive_lines():
     test_file_out = f'{FIXTURE_DIR}/data_out.txt'
     lines_obj = Lines(test_file_in, test_file_out)
     lines_obj.organize_by_line()
+    lines_obj.most_effective_offensive_lines()
 
     expected_result = {
         1: ("Cogliano-Compher-O'Connor", 2.67),
         2: ("Connor-Dubois-Scheifele", 2.67)
     }
 
-    actual_result = lines_obj.most_effective_offensive_lines()
+    actual_result = lines_obj.effective_lines
     assert actual_result == expected_result
 
 

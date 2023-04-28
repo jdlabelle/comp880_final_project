@@ -13,6 +13,10 @@ class Lines:
         self.fin_name, self.fout_name: strings, names of input and output files
         self.list_of_line_dicts: list of dictionaries for each line/pair. See
             organize_by_line().
+        self.effective_lines: Dictionary of top 5 most effective lines. See
+            most_effective_offensive_lines().
+        self.physical_pairs: Dictionary of defensive pair for each team with
+            most hits. See most_physical_defensive_pair().
     """
 
     def __init__(self, filename_in, filename_out):
@@ -25,6 +29,8 @@ class Lines:
         self.fin_name = filename_in
         self.fout_name = filename_out
         self.list_of_line_dicts = []
+        self.effective_lines = {}
+        self.physical_pairs = {}
 
     def organize_by_line(self):
         """
@@ -69,7 +75,11 @@ class Lines:
                 self.list_of_line_dicts.append(line_dict)
             return self.list_of_line_dicts
 
-
+    def write_to_file(self):
+        """
+        Write to the text file `self.fout_name` the data in
+        `self.effective_lines` or `self.physical_pairs`.
+        """
 
     def most_effective_offensive_lines(self):
         """
@@ -82,7 +92,7 @@ class Lines:
             values: tuple with `name` (type string) and `weighted_average`
                 (type float).
         """
-        # filter for only offensive lines and teams with 20+ games played
+        # filter for only offensive lines and teams with 30+ games played
         filtered_list_of_line_dicts = [
             line_dict
             for line_dict in self.list_of_line_dicts
@@ -97,15 +107,15 @@ class Lines:
         )
 
         # construct the return dictionary
-        most_effective_offensive_lines = {}
+        self.effective_lines = {}
         for i in range(min(len(sorted_list_of_line_dicts), 5)):
             # avoid an index out of range error
-            most_effective_offensive_lines[i+1] = (
+            self.effective_lines[i+1] = (
                 sorted_list_of_line_dicts[i]['name'],
                 sorted_list_of_line_dicts[i]['weighted_average']
             )
 
-        return most_effective_offensive_lines
+        return self.effective_lines
 
     def most_physical_defensive_pair(self):
         """
@@ -118,7 +128,7 @@ class Lines:
             values: tuple of pair `name` and `hitsFor`
         """
 
-        most_physical_defensive_pairs = {}
+        self.physical_pairs = {}
         for pair_dict in self.list_of_line_dicts:
             # filter for only defensive pairs
             if pair_dict["position"] == "pairing":
@@ -127,24 +137,26 @@ class Lines:
                 hits = pair_dict["hitsFor"]
 
                 # add key/value pair to dictionary
-                if team not in most_physical_defensive_pairs:
-                    most_physical_defensive_pairs[team] = (name, hits)
+                if team not in self.physical_pairs:
+                    self.physical_pairs[team] = (name, hits)
 
                 # update dictionary with new value if # of hitsFor is greater
                 else:
                     current_name, current_hits = \
-                        most_physical_defensive_pairs[team]
+                        self.physical_pairs[team]
                     if hits > current_hits:
-                        most_physical_defensive_pairs[team] = (name, hits)
+                        self.physical_pairs[team] = (name, hits)
 
-        return most_physical_defensive_pairs
+        return self.physical_pairs
 
 
 def main():
     lines_obj = Lines("../data/NHL_Line_Data.csv", "data_out.txt")
     lines_obj.organize_by_line()
     output = lines_obj.most_physical_defensive_pair()
+    lines_obj.most_effective_offensive_lines()
     print(output)
+    print(lines_obj.effective_lines)
     # choice = input("Which team would you like to see? Enter a 3 character city "
     #                "name. \n Example - BOS for Boston:  ")
     # choice = choice.upper()

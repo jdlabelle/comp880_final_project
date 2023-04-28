@@ -12,9 +12,6 @@
 ```
 * create the class `Lines`
   * This class will represent a dataset with NHL offensive line and defensive pair statistics.
-* Initialize Instance Variables:
-  * `self.fin_name`, `self.fout_name`: strings, names of input and output files
-  * `self.list_of_line_dicts`: list of dictionaries for each line/pair. Updated by `organize_by_line` helper method.
 
 ##  *__init__* Design
 ```
@@ -34,6 +31,10 @@
   * initialize an empty list `self.list_of_line_dicts`
     * this will hold a list of dictionaries representing line/pair statistics.
     * create a helper method to compute and return this.
+  * initialize an empty dictionary `self.effective_lines`
+    * holds the contents returned from `most_effective_offensive_lines()`
+  * initialize an empty dictionary `self.physical_pairs`
+    * holds the contents returned from `most_physical_defensive_pair()`
 
 ## *organize_by_line* Design
 ```
@@ -75,6 +76,23 @@
   * append `line_dict` to `self.list_of_line_dicts`.
 * return `self.list_of_line_dicts`.
 
+
+## *write_to_file* Design
+```
+  def write_to_file(self):
+    """
+    Write to the text file `self.fout_name` the data in
+    `self.effective_lines` or `self.physical_pairs`.
+    """
+```
+* use the _with_ statement to open self.fout_name for writing
+  * assign to variable `file_out`
+* ask for input if the user would like to write the contents of `self.effective_lines` or `self.physical_pairs` to
+  the output file `data_out.txt`
+  * assign the input to `choice`
+* use an _if_ statement to write the `choice` to the output file.
+
+
 ## *most_effective_offensive_lines* Design
 ```
   def most_effective_offensive_lines(self):
@@ -105,17 +123,17 @@
     function to sort based on value associated with the key `weighted_average`, and `reverse=True` in order to specify
     descending order.
 * construct the dictionary `most_effective_offensive_lines` using the values from `sorted_list_of_line_dicts`.
-  * initialize the empty dictionary `most_effective_offensive_lines`
+  * initialize the empty dictionary `self.effective_lines`
   * use a _for loop_ with iterator `i` and iterable `range(min(len(sorted_list_of_line_dicts), 5))`
     * this will allow us to create the dictionary using `i` as the common index, and the iterable is structured so that 
       if `sorted_list_of_line_dicts` has less than 5 entries, it will add to the dictionary the minimum number of dictionaries
       between the length of `sorted_list_of_line_dicts` and the integer 5. 
       * This will avoid an _index out of range error_ if `len(sorted_list_of_line_dicts)` is less than five
-    * within the for loop, each key of `most_effective_offensive_lines` will start with the integer 1, and we can index
+    * within the for loop, each key of `self.effective_lines` will start with the integer 1, and we can index
       `i`+1 to represent this (since `i` will start at 0).
     * assign the value to the tuple of index `i` of `sorted_list_of_line_dicts` key `name`, and index `i` of
       `sorted_list_of_line_dicts` key `weighted_average`.
-* return `most_effective_offensive_lines`.
+* return `self.effective_lines`.
 
 
 ## *most_physical_defensive_pair* Design
@@ -129,7 +147,7 @@
       values: tuple with `name` and `hitsFor`
     """
 ```
-* Initiate an empty dictionary `most_physical_defensive_pairs` to be the accumulator
+* Initiate an empty dictionary `self.physical_pairs` to be the accumulator
 * Use a _for loop_ to iterate through each dictionary in `self.list_of_line_dicts`
   * iterator will be `pair_dict` and iterable `self.list_of_line_dicts` 
   * use the following conditional statements:
@@ -137,12 +155,12 @@
       * this will filter for only defensive pairs
     * assign variables to dictionary values of the keys `team`, `name`, and `hitsFor` to variables `team`, `name`, and
       `hits`.
-    * use an _if_ statement to add the associated key and values to `most_physical_defensive_pairs` if a team is not
+    * use an _if_ statement to add the associated key and values to `self.physical_pairs` if a team is not
       already in the dictionary
       * key assigned to `team`
       * values assigned as a tuple of `name` and `hits`
     * _else_ if that team is in the dictionary
       * check with a conditional to see if the `hits` is greater than the `current_hits` of the value currently
         contained in the dictionary associated with that `team`.
-      * if True, update the value in `most_physical_defensive_pairs` with the new tuple `name` and `hits`
-* return `most_physical_defensive_pairs`
+      * if True, update the value in `self.physical_pairs` with the new tuple `name` and `hits`
+* return `self.physical_pairs`
