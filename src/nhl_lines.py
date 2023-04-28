@@ -84,7 +84,8 @@ class Lines:
         """
         # filter for only offensive lines and teams with 20+ games played
         filtered_list_of_line_dicts = [
-            line_dict for line_dict in self.list_of_line_dicts
+            line_dict
+            for line_dict in self.list_of_line_dicts
             if line_dict["position"] == "line" and
             line_dict["games_played"] >= 30
         ]
@@ -108,19 +109,46 @@ class Lines:
 
     def most_physical_defensive_pair(self):
         """
-        Identify the defensive pair with the highest number of hits for each team. Take the data from
-        `self.list_of_line_dicts` and return a dictionary with teams and defensive pairs.
+        Identify the defensive pair with the highest number of hits for each
+        team. Take the data from `self.list_of_line_dicts` and return a
+        dictionary with teams and defensive pairs and their # of hits.
         :return: Dictionary
-            keys: string representing `team` (3 letter city abbreviation: BOS, DET, OTT, etc)
-            values: string representing `name` (defensive pair names)
+            keys: string representing `team` (3 letter city abbreviation: BOS,
+                DET, OTT, etc.)
+            values: tuple of pair `name` and `hitsFor`
         """
+
+        most_physical_defensive_pairs = {}
+        for pair_dict in self.list_of_line_dicts:
+            # filter for only defensive pairs
+            if pair_dict["position"] == "pairing":
+                team = pair_dict["team"]
+                name = pair_dict["name"]
+                hits = pair_dict["hitsFor"]
+
+                # add key/value pair to dictionary
+                if team not in most_physical_defensive_pairs:
+                    most_physical_defensive_pairs[team] = (name, hits)
+
+                # update dictionary with new value if # of hitsFor is greater
+                else:
+                    current_name, current_hits = \
+                        most_physical_defensive_pairs[team]
+                    if hits > current_hits:
+                        most_physical_defensive_pairs[team] = (name, hits)
+
+        return most_physical_defensive_pairs
 
 
 def main():
     lines_obj = Lines("../data/NHL_Line_Data.csv", "data_out.txt")
     lines_obj.organize_by_line()
-    output = lines_obj.most_effective_offensive_lines()
+    output = lines_obj.most_physical_defensive_pair()
     print(output)
+    # choice = input("Which team would you like to see? Enter a 3 character city "
+    #                "name. \n Example - BOS for Boston:  ")
+    # choice = choice.upper()
+    # print(output[choice])
 
 
 main()

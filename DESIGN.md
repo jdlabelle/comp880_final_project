@@ -126,10 +126,23 @@
     `self.list_of_line_dicts` and return a dictionary with teams and defensive pairs.
     :return: Dictionary
       keys: string representing `team` (3 letter city abbreviation: BOS, DET, OTT, etc)
-      values: string representing `name` (defensive pair names)
+      values: tuple with `name` and `hitsFor`
     """
 ```
-* Use list comprehension to filter `self.list_of_line_dicts` and create a new list of dictionaries called
-  `list_of_pair_dicts` that only include the dictionaries that have the key/value pair `position`: `pair`.
-  * This new list will only contain dictionaries that represent defensive pairs since that is the focus of this method.
-  * the comprehension will consist of a for loop with iterator `pair_dict` and iterable `self.list_of_line_dicts`
+* Initiate an empty dictionary `most_physical_defensive_pairs` to be the accumulator
+* Use a _for loop_ to iterate through each dictionary in `self.list_of_line_dicts`
+  * iterator will be `pair_dict` and iterable `self.list_of_line_dicts` 
+  * use the following conditional statements:
+    * _if_ value associated with key `position` in `pair_dict` is equal to `pairing`
+      * this will filter for only defensive pairs
+    * assign variables to dictionary values of the keys `team`, `name`, and `hitsFor` to variables `team`, `name`, and
+      `hits`.
+    * use an _if_ statement to add the associated key and values to `most_physical_defensive_pairs` if a team is not
+      already in the dictionary
+      * key assigned to `team`
+      * values assigned as a tuple of `name` and `hits`
+    * _else_ if that team is in the dictionary
+      * check with a conditional to see if the `hits` is greater than the `current_hits` of the value currently
+        contained in the dictionary associated with that `team`.
+      * if True, update the value in `most_physical_defensive_pairs` with the new tuple `name` and `hits`
+* return `most_physical_defensive_pairs`
