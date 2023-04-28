@@ -23,8 +23,8 @@ def test_most_effective_offensive_lines():
     dictionary with key `rank` and value tuple with `name` and
     `weighted_average`. Games played minimum set at 30+.
     """
-    test_file_in = f'{FIXTURE_DIR}/../data/data_5.txt'
-    test_file_out = f'{FIXTURE_DIR}/data_5.txt'
+    test_file_in = f'{FIXTURE_DIR}/../data/data_5.csv'
+    test_file_out = f'{FIXTURE_DIR}/data_out.txt'
     lines_obj = Lines(test_file_in, test_file_out)
     lines_obj.organize_by_line()
 
