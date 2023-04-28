@@ -26,7 +26,7 @@ def test_organize_by_lines():
     statistic. Additionally, calculates `weighted_average` for each line by
     dividing `goalsFor` by `goalsAgainst` for inclusion in the dictionary.
     """
-    test_file_in = f'{FIXTURE_DIR}/../data/data_1.txt'
+    test_file_in = f'{FIXTURE_DIR}/../data/data_1.csv'
     test_file_out = f'{FIXTURE_DIR}/data_out.txt'
     lines_obj = Lines(test_file_in, test_file_out)
 

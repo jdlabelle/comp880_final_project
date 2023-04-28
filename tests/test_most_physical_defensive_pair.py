@@ -24,8 +24,8 @@ def test_most_physical_defensive_pair():
     highest hits statistic for that team. Will only return defensive pairs;
     offensive lines are filtered out.
     """
-    test_file_in = f'{FIXTURE_DIR}/../data/data_10.txt'
-    test_file_out = f'{FIXTURE_DIR}/data_10.txt'
+    test_file_in = f'{FIXTURE_DIR}/../data/data_10.csv'
+    test_file_out = f'{FIXTURE_DIR}/data_out.txt'
     lines_obj = Lines(test_file_in, test_file_out)
     lines_obj.organize_by_line()
 
