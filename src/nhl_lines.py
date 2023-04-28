@@ -80,6 +80,17 @@ class Lines:
         Write to the text file `self.fout_name` the data in
         `self.effective_lines` or `self.physical_pairs`.
         """
+        with open(self.fout_name, 'w') as file_out:
+            print("1 for top 5 most effective offensive lines, 2 for most "
+                  "physical defensive pair for each team")
+            choice = int(input("Which output would you"
+                               " like to write to file?: "))
+            if choice == 1:
+                file_out.write(str(self.effective_lines))
+            elif choice == 2:
+                file_out.write(str(self.physical_pairs))
+            else:
+                print("Invalid Choice")
 
     def most_effective_offensive_lines(self):
         """
@@ -157,6 +168,8 @@ def main():
     lines_obj.most_effective_offensive_lines()
     print(output)
     print(lines_obj.effective_lines)
+    lines_obj.write_to_file()
+
     # choice = input("Which team would you like to see? Enter a 3 character city "
     #                "name. \n Example - BOS for Boston:  ")
     # choice = choice.upper()
