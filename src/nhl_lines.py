@@ -159,23 +159,3 @@ class Lines:
                         self.physical_pairs[team] = (name, hits)
 
         return self.physical_pairs
-
-
-def main():
-    lines_obj = Lines("../data/NHL_Line_Data.csv", "data_out.txt")
-    lines_obj.organize_by_line()
-    output = lines_obj.most_physical_defensive_pair()
-    lines_obj.most_effective_offensive_lines()
-    print(output)
-    print(lines_obj.effective_lines)
-    lines_obj.write_to_file()
-
-    # choice = input("Which team would you like to see? Enter a 3 character city "
-    #                "name. \n Example - BOS for Boston:  ")
-    # choice = choice.upper()
-    # print(output[choice])
-
-
-main()
-
-
