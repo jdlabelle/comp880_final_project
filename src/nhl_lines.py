@@ -154,8 +154,7 @@ class Lines:
 
                 # update dictionary with new value if # of hitsFor is greater
                 else:
-                    _ , current_hits = \
-                        self.physical_pairs[team]
+                    _, current_hits = self.physical_pairs[team]
                     if hits > current_hits:
                         self.physical_pairs[team] = (name, hits)
 
