@@ -49,7 +49,7 @@ class Lines:
                 string, "games_played" will be type int, and all others will be
                 type float.
         """
-        with open(self.fin_name, 'r') as f_in:
+        with open(self.fin_name, 'r', encoding='UTF-8') as f_in:
             self.list_of_line_dicts = []
             line_lst = []
             for row in f_in.readlines():
@@ -63,7 +63,8 @@ class Lines:
                     line_lst[0][74]: float(line[74]),
                     line_lst[0][38]: float(line[38])
                 }
-                if line_dict["goalsFor"] > 0 and line_dict["goalsAgainst"] != 0:
+                if line_dict["goalsFor"] > 0 and \
+                        line_dict["goalsAgainst"] != 0:
                     line_dict["weighted_average"] = round(
                         line_dict["goalsFor"] / line_dict["goalsAgainst"], 2
                     )
@@ -80,7 +81,7 @@ class Lines:
         Write to the text file `self.fout_name` the data in
         `self.effective_lines` or `self.physical_pairs`.
         """
-        with open(self.fout_name, 'w') as file_out:
+        with open(self.fout_name, 'w', encoding='UTF-8') as file_out:
             print("1 for top 5 most effective offensive lines, 2 for most "
                   "physical defensive pair for each team")
             choice = int(input("Which output would you"
@@ -153,7 +154,7 @@ class Lines:
 
                 # update dictionary with new value if # of hitsFor is greater
                 else:
-                    current_name, current_hits = \
+                    _ , current_hits = \
                         self.physical_pairs[team]
                     if hits > current_hits:
                         self.physical_pairs[team] = (name, hits)
