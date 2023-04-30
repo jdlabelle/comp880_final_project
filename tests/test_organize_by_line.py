@@ -44,4 +44,3 @@ def test_organize_by_lines():
 
 if __name__ == '__main__':
     pytest.run()
-

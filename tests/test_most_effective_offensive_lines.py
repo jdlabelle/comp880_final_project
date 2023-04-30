@@ -19,8 +19,8 @@ FIXTURE_DIR = os.path.join(
 
 def test_most_effective_offensive_lines():
     """
-    Test happy path of most_effective_offensive_lines() method in Lines. Returns
-    dictionary with key `rank` and value tuple with `name` and
+    Test happy path of most_effective_offensive_lines() method in Lines.
+    Returns dictionary with key `rank` and value tuple with `name` and
     `weighted_average`. Games played minimum set at 30+.
     """
     test_file_in = f'{FIXTURE_DIR}/../data/data_5.csv'
