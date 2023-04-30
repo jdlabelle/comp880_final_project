@@ -1,6 +1,6 @@
 # COMP880 Final Project
 #### *Author: Joshua LaBelle*
-#### *Date last updated: 27 April 2023*
+#### *Date last updated: 29 April 2023*
 
 ### What this project investigates:
 * This project aims to analyze and answer two questions regarding NHL Line/Pair statistics for the 2022-2023 season.
