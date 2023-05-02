@@ -87,9 +87,13 @@ class Lines:
             choice = int(input("Which output would you"
                                " like to write to file?: "))
             if choice == 1:
-                file_out.write(str(self.effective_lines))
+                for rank, line in self.effective_lines.items():
+                    line_rank = f'{rank}: {line}' + '\n'
+                    file_out.write(line_rank)
             elif choice == 2:
-                file_out.write(str(self.physical_pairs))
+                for team, pair in self.physical_pairs.items():
+                    pair_data = f'{team}: {pair}' + '\n'
+                    file_out.write(pair_data)
             else:
                 print("Invalid Choice")
 

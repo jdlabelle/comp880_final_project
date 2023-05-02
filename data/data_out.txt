@@ -1,1 +1,5 @@
-{1: ("Cogliano-Newhook-O'Connor", 5.0), 2: ('Marchand-Krejci-Pastrnak', 4.0), 3: ('Tavares-Matthews-Marner', 3.0), 4: ('Perfetti-Scheifele-Wheeler', 3.0), 5: ('Hagel-Cirelli-Killorn', 3.0)}
+1: ("Cogliano-Newhook-O'Connor", 5.0)
+2: ('Marchand-Krejci-Pastrnak', 4.0)
+3: ('Tavares-Matthews-Marner', 3.0)
+4: ('Perfetti-Scheifele-Wheeler', 3.0)
+5: ('Hagel-Cirelli-Killorn', 3.0)
