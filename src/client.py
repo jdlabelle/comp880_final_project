@@ -5,14 +5,19 @@ Initial authors: Joshua LaBelle
 Individual contributor: Joshua LaBelle
 Date: 29 April 2023
 """
-from nhl_lines import Lines
+import os
+from src.nhl_lines import Lines
 
+FIXTURE_DIR = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+)
 
 def offensive_lines_method():
     """
     Demonstrate `most_effective_offensive_lines()` instance method in Lines.
     """
-    lines_obj = Lines("../data/NHL_Line_Data.csv", "../data/data_out.txt")
+    lines_obj = Lines(f"{FIXTURE_DIR}/../data/NHL_Line_Data.csv", 
+                      f"{FIXTURE_DIR}/../data/data_out.txt")
     lines_obj.organize_by_line()
     most_effective_lines = lines_obj.most_effective_offensive_lines()
     for rank, offensive_line in most_effective_lines.items():
@@ -23,7 +28,8 @@ def defensive_pair_method():
     """
     Demonstrate `most_physical_defensive_pair()` instance method in Lines.
     """
-    lines_obj = Lines("../data/NHL_Line_Data.csv", "../data/data_out.txt")
+    lines_obj = Lines(f"{FIXTURE_DIR}/../data/NHL_Line_Data.csv", 
+                      f"{FIXTURE_DIR}/../data/data_out.txt")
     lines_obj.organize_by_line()
     most_physical_pair = lines_obj.most_physical_defensive_pair()
     for team, defensive_pair in most_physical_pair.items():
@@ -35,7 +41,8 @@ def write_output():
     """
     Demonstrate `write_to_file()` method in Lines.
     """
-    lines_obj = Lines("../data/NHL_Line_Data.csv", "../data/data_out.txt")
+    lines_obj = Lines(f"{FIXTURE_DIR}/../data/NHL_Line_Data.csv", 
+                      f"{FIXTURE_DIR}/../data/data_out.txt")
     lines_obj.organize_by_line()
     lines_obj.most_effective_offensive_lines()
     lines_obj.most_physical_defensive_pair()
