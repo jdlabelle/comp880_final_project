@@ -6,4 +6,3 @@ setup(
     name='comp880_finalProject',
     packages=find_packages(),
 )
-
